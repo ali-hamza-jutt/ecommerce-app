@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../redux/productSlice.js';
+import { fetchProductsThunk } from '../redux/productSlice'; // Import the thunk action
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -8,7 +8,7 @@ const Search = () => {
   const products = useSelector((state) => state.products.items);
 
   const handleSearch = () => {
-    dispatch(fetchProducts(query));
+    dispatch(fetchProductsThunk(query)); // Dispatch the thunk with query
   };
 
   return (

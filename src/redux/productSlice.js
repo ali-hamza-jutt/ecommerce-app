@@ -1,24 +1,15 @@
+// productsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { fetchProducts } from '../apis/fetchProducts'; // Import the function from api.js
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const response = await axios.get('https://api.example.com/products');
-  return response.data;
-});
-
-export const addProduct = createAsyncThunk('products/addProduct', async (product) => {
-  const response = await axios.post('https://api.example.com/products', product);
-  return response.data;
-});
-
-export const updateProduct = createAsyncThunk('products/updateProduct', async (product) => {
-  const response = await axios.put(`https://api.example.com/products/${product.id}`, product);
-  return response.data;
-});
-
-export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id) => {
-  await axios.delete(`https://api.example.com/products/${id}`);
-  return id;
+export const fetchProductsThunk = createAsyncThunk('products/fetchProducts', async () => {
+  try {
+    const data = await fetchProducts(); // Call the imported function
+    console.log(data)
+    return data;
+  } catch (error) {
+    throw new Error(error.message); // Handle errors
+  }
 });
 
 const productsSlice = createSlice({
@@ -31,26 +22,16 @@ const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state) => {
+      .addCase(fetchProductsThunk.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
+      .addCase(fetchProductsThunk.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items = action.payload;
+        state.items = action.payload.products; // Adjust based on the actual structure of the response
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchProductsThunk.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      })
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.items.push(action.payload);
-      })
-      .addCase(updateProduct.fulfilled, (state, action) => {
-        const index = state.items.findIndex((product) => product.id === action.payload.id);
-        state.items[index] = action.payload;
-      })
-      .addCase(deleteProduct.fulfilled, (state, action) => {
-        state.items = state.items.filter((product) => product.id !== action.payload);
       });
   },
 });
