@@ -1,4 +1,5 @@
 import axios from "axios";
+import { resolvePath } from "react-router-dom";
 
 export const fetchProducts=async()=>{
     const options = {
@@ -18,7 +19,8 @@ export const fetchProducts=async()=>{
       
       try {
           const response = await axios.request(options);
-          console.log(response.data.products);
+          //console.log(response.data.products);
+          return response.data;
       } catch (error) {
           console.error(error);
       }

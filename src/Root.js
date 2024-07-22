@@ -2,19 +2,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import LandingPage from './pages/LandingPage';
-// import ProductDetails from './pages/ProductDetails';
+import ProductDescription from './pages/ProductDescription';
 // import ShoppingCart from './pages/ShoppingCart';
 // import Checkout from './pages/Checkout';
 // import OrderHistory from './pages/OrderHistory';
 // import AdminPanel from './pages/AdminPanel';
 // import UserDashboard from './pages/UserDashboard';
 import App from './App';
+import './index.css'
 
 const Root = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/products/:productId" element={<ProductDescription />} />
+
+
         {/* <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/checkout" element={<Checkout />} />

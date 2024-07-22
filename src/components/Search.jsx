@@ -20,11 +20,6 @@ const Search = () => {
         placeholder="Search for products..."
       />
       <button onClick={handleSearch}>Search</button>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
-        ))}
-      </ul>
     </div>
   );
 };

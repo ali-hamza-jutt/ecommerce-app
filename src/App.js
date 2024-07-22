@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './components/Search';
 import ProductList from './components/ProductList';
+import './index.css'
 
 const App = () => {
   return (

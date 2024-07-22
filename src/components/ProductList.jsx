@@ -8,7 +8,6 @@ const ProductList = () => {
   const products = useSelector((state) => state.products.items);
   const productStatus = useSelector((state) => state.products.status);
   const error = useSelector((state) => state.products.error);
-  console.log(products)
 
   useEffect(() => {
     if (productStatus === 'idle') {
@@ -21,12 +20,18 @@ const ProductList = () => {
   if (productStatus === 'loading') {
     content = <p>Loading...</p>;
   } else if (productStatus === 'succeeded') {
-    content = products.map((product) => <ProductCard key={product.id} product={product} />);
+    content = products.map((product) => (
+      <ProductCard key={product.id} product={product} />
+    ));
   } else if (productStatus === 'failed') {
     content = <p>{error}</p>;
   }
 
-  return <div className="grid grid-cols-1 md:grid-cols-3 gap-6">{content}</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {content}
+    </div>
+  );
 };
 
 export default ProductList;

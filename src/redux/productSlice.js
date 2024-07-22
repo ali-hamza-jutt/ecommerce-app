@@ -5,7 +5,7 @@ import { fetchProducts } from '../apis/fetchProducts'; // Import the function fr
 export const fetchProductsThunk = createAsyncThunk('products/fetchProducts', async () => {
   try {
     const data = await fetchProducts(); // Call the imported function
-    console.log(data)
+    //console.log(data); // This should log the full data
     return data;
   } catch (error) {
     throw new Error(error.message); // Handle errors
