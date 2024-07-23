@@ -3,9 +3,15 @@ import { useNavigate } from 'react-router-dom';
 const ProductCard = ({ product }) => {
   const navigate=useNavigate();
 
-  const handleClick=()=>{
-    navigate(`productDescription/${product.id}`)
+  // const handleClick=()=>{
+  //   console.log(product.id)
+  //   navigate(`productDescription/${product.id}`)
+  // }
+  const handleClick = () => {
+    console.log(product.id);
+    navigate(`/productDescription/${product.id}`); // Only include product ID
   }
+  
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg"       onClick={handleClick}
 >
