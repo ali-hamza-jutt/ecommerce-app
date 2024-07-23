@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserData, logout } from '../redux/userSlice'; // Adjust the import path as necessary
+import { selectUserData, logout } from '../redux/userSlice.js'
 import '../styles/Navbar.css';
 
 function Navbar({ onSubmit, onCategoryChange = () => {} }) {

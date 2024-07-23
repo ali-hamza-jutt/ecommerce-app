@@ -18,7 +18,6 @@ const ProfilePage = () => {
             <span className="w-32 font-medium text-gray-700">Email:</span>
             <span className="text-gray-900">{user.email || 'N/A'}</span>
           </div>
-          {/* Add more user details if needed */}
         </div>
       </div>
     </div>

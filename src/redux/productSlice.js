@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchProducts } from '../apis/fetchProducts';
 
+// Thunk to fetch products based on category ID
 export const fetchProductsThunk = createAsyncThunk(
     'products/fetchProducts',
     async (categoryId) => {
@@ -14,13 +15,17 @@ export const fetchProductsThunk = createAsyncThunk(
     }
 );
 
+// Initial state for the products slice
+const initialState = {
+    items: [],   // Ensure items is initialized as an empty array
+    status: 'idle',
+    error: null,
+};
+
+// Create the products slice
 const productsSlice = createSlice({
     name: 'products',
-    initialState: {
-        items: [],
-        status: 'idle',
-        error: null,
-    },
+    initialState,
     reducers: {
         clearProducts: (state) => {
             state.items = [];
@@ -35,7 +40,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProductsThunk.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.items = action.payload.products;
+                state.items = action.payload.products || []; // Ensure items is always an array
             })
             .addCase(fetchProductsThunk.rejected, (state, action) => {
                 state.status = 'failed';
@@ -44,5 +49,6 @@ const productsSlice = createSlice({
     },
 });
 
+// Export actions and reducer
 export const { clearProducts } = productsSlice.actions;
 export default productsSlice.reducer;

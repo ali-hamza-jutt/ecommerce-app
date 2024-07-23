@@ -3,13 +3,10 @@ import { useNavigate } from 'react-router-dom';
 const ProductCard = ({ product }) => {
   const navigate=useNavigate();
 
-  // const handleClick=()=>{
-  //   console.log(product.id)
-  //   navigate(`productDescription/${product.id}`)
-  // }
+
   const handleClick = () => {
     console.log(product.id);
-    navigate(`/productDescription/${product.id}`); // Only include product ID
+    navigate(`/productDescription/${product.id}`); 
   }
   
   return (

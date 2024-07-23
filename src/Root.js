@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductDescription from './pages/ProductDescription';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+import AddToCart from './pages/AddToCart';
+import CartPage from './pages/CartPage';
+
 // import ShoppingCart from './pages/ShoppingCart';
 // import Checkout from './pages/Checkout';
 // import OrderHistory from './pages/OrderHistory';
@@ -23,6 +26,8 @@ const Root = () => {
         <Route path="/productDescription/:productId" element={<ProductDescription />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/add-to-cart/:productId" element={<AddToCart />} />
         {/* <Route path="/productDescription/:productId" element={<ProductDescription />} /> */}
 
 

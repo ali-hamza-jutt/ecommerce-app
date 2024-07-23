@@ -1,6 +1,5 @@
-// ProductDescription.js
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const ProductDescription = () => {
@@ -8,6 +7,7 @@ const ProductDescription = () => {
   const product = useSelector((state) =>
     state.products.items.find((item) => item.id === parseInt(productId))
   );
+  const user = useSelector((state) => state.user.userData);
 
   if (!product) {
     return <p>Product not found.</p>;
@@ -25,7 +25,6 @@ const ProductDescription = () => {
             onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'} // Add a placeholder image if needed
           />
           <div className="mt-4 flex flex-wrap gap-4">
-            <h1>hwllo</h1>
             {product.additionalImageUrls.map((url, index) => (
               <img
                 key={index}
@@ -53,6 +52,14 @@ const ProductDescription = () => {
           >
             View Product
           </a>
+          {user.uid && (
+            <Link
+              to={`/add-to-cart/${product.id}`}
+              className="block mt-4 text-blue-500 hover:underline"
+            >
+              Add to Cart
+            </Link>
+          )}
         </div>
       </div>
     </div>
