@@ -1,37 +1,39 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsThunk } from '../redux/productSlice'; // Import the thunk action
+import { fetchProductsThunk } from '../redux/productSlice';
 import ProductCard from './ProductCard';
+import { useParams } from 'react-router-dom';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.items);
-  const productStatus = useSelector((state) => state.products.status);
-  const error = useSelector((state) => state.products.error);
+    const dispatch = useDispatch();
+    const { categoryId } = useParams(); // Get categoryId from URL parameters
+    const products = useSelector((state) => state.products.items);
+    const productStatus = useSelector((state) => state.products.status);
+    const error = useSelector((state) => state.products.error);
 
-  useEffect(() => {
-    if (productStatus === 'idle') {
-      dispatch(fetchProductsThunk());
+    useEffect(() => {
+    if (categoryId) {
+        dispatch(fetchProductsThunk(categoryId)); // Pass categoryId to the thunk
     }
-  }, [productStatus, dispatch]);
+}, [categoryId, dispatch]);
 
-  let content;
+let content;
 
-  if (productStatus === 'loading') {
+if (productStatus === 'loading') {
     content = <p>Loading...</p>;
-  } else if (productStatus === 'succeeded') {
+} else if (productStatus === 'succeeded') {
     content = products.map((product) => (
-      <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} />
     ));
-  } else if (productStatus === 'failed') {
+} else if (productStatus === 'failed') {
     content = <p>{error}</p>;
-  }
+}
 
-  return (
+return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {content}
+        {content}
     </div>
-  );
-};
+);
+}
 
 export default ProductList;

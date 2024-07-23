@@ -8,6 +8,7 @@ import ProductDescription from './pages/ProductDescription';
 // import OrderHistory from './pages/OrderHistory';
 // import AdminPanel from './pages/AdminPanel';
 // import UserDashboard from './pages/UserDashboard';
+import ProductList from './components/ProductList';
 import App from './App';
 import './index.css'
 
@@ -16,7 +17,8 @@ const Root = () => {
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/products/:productId" element={<ProductDescription />} />
+        <Route path="/productsList/:categoryId" element={<ProductList />} />
+        <Route path="/productDescription/:productId" element={<ProductDescription />} />
 
 
         {/* <Route path="/product/:productId" element={<ProductDetails />} />

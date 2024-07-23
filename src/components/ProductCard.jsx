@@ -4,7 +4,7 @@ const ProductCard = ({ product }) => {
   const navigate=useNavigate();
 
   const handleClick=()=>{
-    navigate(`products/${product.id}`)
+    navigate(`productDescription/${product.id}`)
   }
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg"       onClick={handleClick}

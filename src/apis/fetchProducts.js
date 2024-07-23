@@ -1,27 +1,25 @@
-import axios from "axios";
-import { resolvePath } from "react-router-dom";
-
-export const fetchProducts=async()=>{
-    const options = {
-        method: 'GET',
-        url: 'https://asos2.p.rapidapi.com/products/v2/list',
-        params: {
+import axios from 'axios';
+export const fetchProducts = async (categoryId) => {
+  const options = {
+      method: 'GET',
+      url: 'https://asos2.p.rapidapi.com/products/v2/list',
+      params: {
           lang: 'en-US',
           store: 'US',
-          categoryId: 4209,
+          categoryId: categoryId, // Ensure this is being set correctly
           limit: 48
-        },
-        headers: {
+      },
+      headers: {
           'x-rapidapi-key': '115db57930msha0f3dc071ebede0p12df84jsn59e79842489a',
           'x-rapidapi-host': 'asos2.p.rapidapi.com'
-        }
-      };
-      
-      try {
-          const response = await axios.request(options);
-          //console.log(response.data.products);
-          return response.data;
-      } catch (error) {
-          console.error(error);
       }
-}
+  };
+  
+  try {
+      const response = await axios.request(options);
+      return response.data;
+  } catch (error) {
+      console.error(error);
+      throw new Error('Error fetching products');
+  }
+};
