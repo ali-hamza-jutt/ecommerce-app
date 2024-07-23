@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsThunk } from '../redux/productSlice';
+import { fetchProductsThunk,clearProducts } from '../redux/productSlice';
 import ProductCard from './ProductCard';
 import { useParams } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ const ProductList = () => {
     const error = useSelector((state) => state.products.error);
 
     useEffect(() => {
+        dispatch(clearProducts()); // Clear previous products
     if (categoryId) {
         dispatch(fetchProductsThunk(categoryId)); // Pass categoryId to the thunk
     }

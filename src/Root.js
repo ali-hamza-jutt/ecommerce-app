@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import LandingPage from './pages/LandingPage';
 import ProductDescription from './pages/ProductDescription';
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 // import ShoppingCart from './pages/ShoppingCart';
 // import Checkout from './pages/Checkout';
 // import OrderHistory from './pages/OrderHistory';
@@ -19,6 +21,8 @@ const Root = () => {
         <Route path="/" element={<App />} />
         <Route path="/productslist/:categoryId" element={<ProductList />} />
         <Route path="/productDescription/:productId" element={<ProductDescription />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         {/* <Route path="/productDescription/:productId" element={<ProductDescription />} /> */}
 
 

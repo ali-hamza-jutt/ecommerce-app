@@ -145,13 +145,6 @@ form {
   color: black;
 }
 
-.profileIcon {
-  margin: 0 7px;
-}
-
-.profileName {
-  font-weight: 600;
-}
 
 .menuWrapper {
   display: flex;
@@ -190,4 +183,44 @@ form {
   font-size: 14px;
   font-weight: 500;
   padding: 10px;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.profileIcon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.arrowIcon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileMenu button {
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.profileMenu button:hover {
+  background-color: #f0f0f0;
 }

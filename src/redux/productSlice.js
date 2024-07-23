@@ -21,7 +21,13 @@ const productsSlice = createSlice({
         status: 'idle',
         error: null,
     },
-    reducers: {},
+    reducers: {
+        clearProducts: (state) => {
+            state.items = [];
+            state.status = 'idle';
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchProductsThunk.pending, (state) => {
@@ -29,7 +35,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProductsThunk.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.items = action.payload.products; // Ensure data structure matches
+                state.items = action.payload.products;
             })
             .addCase(fetchProductsThunk.rejected, (state, action) => {
                 state.status = 'failed';
@@ -38,4 +44,5 @@ const productsSlice = createSlice({
     },
 });
 
+export const { clearProducts } = productsSlice.actions;
 export default productsSlice.reducer;

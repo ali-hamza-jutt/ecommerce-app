@@ -1,40 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import Avatar from '@mui/material/Avatar';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserData, logout } from '../redux/userSlice'; // Adjust the import path as necessary
 import '../styles/Navbar.css';
 
-function Navbar({ onSubmit, onCategoryChange = () => {} }) {  
+function Navbar({ onSubmit, onCategoryChange = () => {} }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUserData);
   const [input, setInput] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-    setIsAuthenticated(authStatus);
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/logout', {}, { withCredentials: true });
-      if (response.status === 200) {
-        localStorage.removeItem('isAuthenticated');
-        setIsAuthenticated(false);
-        navigate('/');
-      }
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
+    console.log("Authentication status changed:", Boolean(userData.uid));
+  }, [userData]);
 
   const handleCategoryClick = (categoryId) => {
-    navigate(`/productsList/${categoryId}`); // Navigate to category route
-};
-
+    navigate(`/productsList/${categoryId}`);
+  };
 
   const onSearchSubmit = (e) => {
     e.preventDefault();
@@ -45,10 +34,20 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsMenuOpen(false);
+        setIsProfileMenuOpen(false);
       }
     };
 
@@ -87,20 +86,26 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
             </div>
           </div>
           <div className="profileWrapper">
-            {isAuthenticated ? (
-              <div className="logoutWrapper">
-                <button onClick={handleLogout}>Logout</button>
+            {userData.uid ? (
+              <div className="profileContainer">
+                <div className="profileIcon" onClick={() => navigate('/profile')}>
+                  <Avatar alt="Profile" src="/static/images/avatar/1.jpg" sx={{ width: 32, height: 32 }} />
+                  <span>{userData.displayName || 'Profile'}</span>
+                </div>
+                <div className="arrowIcon" onClick={toggleProfileMenu}>
+                  <KeyboardArrowDownIcon />
+                </div>
+                {isProfileMenuOpen && (
+                  <div className="profileMenu">
+                    <button onClick={handleLogout}>Logout</button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="loginWrapper">
-                <a href="/">
-                  <div className="profileIcon">
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 32, height: 32 }} />
-                  </div>
-                  <div className="profileName">
-                    <p>Junaid</p>
-                  </div>
-                </a>
+                <Link to="/login">
+                  <button>Login</button>
+                </Link>
               </div>
             )}
           </div>
@@ -134,20 +139,26 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
             </div>
           </div>
           <div className="profileWrapper">
-            {isAuthenticated ? (
-              <div className="logoutWrapper">
-                <button onClick={handleLogout}>Logout</button>
+            {userData.uid ? (
+              <div className="profileContainer">
+                <div className="profileIcon" onClick={() => navigate('/profile')}>
+                  <Avatar alt="Profile" src="/static/images/avatar/1.jpg" sx={{ width: 32, height: 32 }} />
+                  <span>{userData.displayName || 'Profile'}</span>
+                </div>
+                <div className="arrowIcon" onClick={toggleProfileMenu}>
+                  <KeyboardArrowDownIcon />
+                </div>
+                {isProfileMenuOpen && (
+                  <div className="profileMenu">
+                    <button onClick={handleLogout}>Logout</button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="loginWrapper">
-                <a href="/">
-                  <div className="profileIcon">
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 32, height: 32 }} />
-                  </div>
-                  <div className="profileName">
-                    <p>Junaid</p>
-                  </div>
-                </a>
+                <Link to="/login">
+                  <button>Login</button>
+                </Link>
               </div>
             )}
           </div>

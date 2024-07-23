@@ -25,6 +25,7 @@ const ProductDescription = () => {
             onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'} // Add a placeholder image if needed
           />
           <div className="mt-4 flex flex-wrap gap-4">
+            <h1>hwllo</h1>
             {product.additionalImageUrls.map((url, index) => (
               <img
                 key={index}
