@@ -1,0 +1,226 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 12px 4px 4px 12px;
+  background-color: white;
+  color: black;
+  margin: 0.5rem 0 1.5rem 0;
+  position: relative;
+}
+
+.logoWrapper {
+  display: flex;
+}
+
+.logoText {
+  text-decoration: none;
+  color: #000000;
+}
+
+.logoText h1 {
+  font-family: 'Playwrite PL', cursive;
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+@media (min-width: 768px) {
+  .menuIcon {
+    display: none;
+  }
+}
+
+.desktopMenu {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopMenu {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+}
+
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background-color: white;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  padding-top: 2.5vh;
+}
+
+.dropdownMenu.open {
+  transform: translateX(0);
+}
+
+.searchWrapper {
+  display: flex;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.searchBarWrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  background-color: #efefef;
+  border-radius: 50px;
+  height: 36px;
+  margin: 0 25px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .searchBarWrapper {
+    width: 60%;
+  }
+}
+
+form {
+  display: flex;
+  flex: 1;
+}
+
+.searchInput {
+  background-color: #efefef;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  margin-right: 5px;
+  padding-right: 20px;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.profileWrapper {
+  display: flex;
+  padding: 10px 0;
+}
+
+.logoutWrapper button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loginWrapper a {
+  display: flex;
+  align-items: center;
+  margin: 0 20px 0 0;
+  text-decoration: none;
+  color: black;
+}
+
+
+.menuWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px 0 0;
+}
+
+@media (min-width: 768px) {
+  .menuWrapper {
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+  }
+}
+
+.menuOption a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.categoryBar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+.categoryOption a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.profileIcon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.arrowIcon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileMenu button {
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.profileMenu button:hover {
+  background-color: #f0f0f0;
+}
