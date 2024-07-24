@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ref, set } from '../Authentication/firebase.js';
-import { db, auth } from '../Authentication/firebase.js'; // Adjust path as necessary
+import { db } from '../Authentication/firebase.js'; // Adjust path as necessary
 
 const AddToCart = () => {
   const { productId } = useParams();
@@ -25,16 +25,41 @@ const AddToCart = () => {
   if (!product && !state) {
     return <p>Product not found.</p>;
   }
-
+  const multiplier=(a,b)=>{
+    return a*b
+  }
   const handleAddToCart = () => {
     if (user.isAuthenticated) {
+      // Debugging logs
+      console.log('Product:', product);
+      console.log('State:', state);
+      
+      const itemPrice = product?.price.current.text || state.price;
+      const itemQuantity = quantity; // Ensure quantity is an integer
+
+      const itemPriceNumber = parseFloat(itemPrice.replace(/[^\d.-]/g, '')); // Remove non-numeric characters
+      const itemQuantityNumber = Number(itemQuantity);
+
+      const totalPrice = itemPriceNumber * itemQuantityNumber;
+
+    
+      
+
+
+      // More debugging logs
+      console.log('Item Price:', itemPrice);
+      console.log('Item Quantity:', itemQuantity);
+      console.log('Total Price:', totalPrice);
+
       const cartItem = {
         productId,
-        name: product?.name || state.name,
-        price: product?.price.current.text || state.price,
-        imageUrl: product?.imageUrl || state.imageUrl,
+        name: product?.name || state?.name || 'Unnamed Product',
+         price: itemPrice,
+         imageUrl: product?.imageUrl || state.imageUrl,
+
         color,
-        quantity,
+        quantity: itemQuantity,
+        totalPrice:totalPrice // Calculate totalPrice
       };
 
       const cartRef = ref(db, `carts/${user.uid}/${productId}`);

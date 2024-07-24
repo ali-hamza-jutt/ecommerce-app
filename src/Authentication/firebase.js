@@ -11,7 +11,7 @@ const app = initializeApp({
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-    databaseURL: "https://asos-19555-default-rtdb.asia-southeast1.firebasedatabase.app" // Add the correct database URL here
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL // Add the correct database URL here
 
 
 });

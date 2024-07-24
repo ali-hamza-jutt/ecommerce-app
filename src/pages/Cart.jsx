@@ -31,6 +31,12 @@ const Cart = () => {
     }
   }, [user.isAuthenticated, dispatch, user.uid]);
 
+  const handleEdit = (item) => {
+    navigate(`/add-to-cart/${item.productId}`, {
+      state: { item } // Pass the item data to the add-to-cart page
+    });
+  };
+
   const handleDelete = (productId) => {
     if (user.isAuthenticated) {
       const cartRef = ref(db, `carts/${user.uid}/${productId}`);
@@ -44,12 +50,6 @@ const Cart = () => {
     }
   };
 
-  const handleEdit = (item) => {
-    navigate(`/add-to-cart/${item.productId}`, {
-      state: { item } // Pass the item data to the add-to-cart page
-    });
-  };
-
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -58,7 +58,12 @@ const Cart = () => {
     return <p>Please log in to view your cart.</p>;
   }
 
-  const totalBill = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalBill = cartItems.reduce((total, item) => {
+    const itemPrice = parseFloat(item.price) || 0; // Ensure price is a number
+    const itemQuantity = parseInt(item.quantity) || 1; // Ensure quantity is an integer
+    const itemTotalPrice = parseFloat(item.totalPrice) || itemPrice * itemQuantity; // Default totalPrice if not set
+    return total + itemTotalPrice;
+  }, 0);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -77,7 +82,8 @@ const Cart = () => {
               <h3 className="text-lg font-bold">{item.name}</h3>
               <p>Color: {item.color}</p>
               <p>Quantity: {item.quantity}</p>
-              <p>Price: {item.price}</p>
+              <p>Price: ${item.price}</p>
+              <p>Total Price: ${item.totalPrice}</p> {/* Display totalPrice */}
             </div>
             <div className="flex gap-2 ml-auto">
               <button
