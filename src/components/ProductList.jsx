@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsThunk,clearProducts } from '../redux/productSlice';
+import { fetchProductsThunk, clearProducts } from '../redux/productSlice';
 import ProductCard from './ProductCard';
 import { useParams } from 'react-router-dom';
 
@@ -13,28 +13,30 @@ const ProductList = () => {
 
     useEffect(() => {
         dispatch(clearProducts()); // Clear previous products
-    if (categoryId) {
-        dispatch(fetchProductsThunk(categoryId)); // Pass categoryId to the thunk
+        if (categoryId) {
+            dispatch(fetchProductsThunk(categoryId)); // Pass categoryId to the thunk
+        }
+    }, [categoryId, dispatch]);
+
+    let content;
+
+    if (productStatus === 'loading') {
+        content = <p>Loading...</p>;
+    } else if (productStatus === 'succeeded') {
+        content = products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+        ));
+    } else if (productStatus === 'failed') {
+        content = <p>{error}</p>;
     }
-}, [categoryId, dispatch]);
 
-let content;
-
-if (productStatus === 'loading') {
-    content = <p>Loading...</p>;
-} else if (productStatus === 'succeeded') {
-    content = products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-    ));
-} else if (productStatus === 'failed') {
-    content = <p>{error}</p>;
-}
-
-return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {content}
-    </div>
-);
-}
+    return (
+        <div className="px-4 sm:px-6 lg:px-8 " style={{ backgroundColor: '#feeeca' }}>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
+                {content}
+            </div>
+        </div>
+    );
+};
 
 export default ProductList;
