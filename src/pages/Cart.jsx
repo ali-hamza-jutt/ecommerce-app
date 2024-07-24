@@ -105,6 +105,12 @@ const Cart = () => {
       <div className="mt-6">
         <h3 className="text-xl font-bold">Total Bill: ${totalBill}</h3>
       </div>
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+        onClick={() => navigate('/checkout')}
+      >
+        Checkout
+      </button>
     </div>
   );
 };
