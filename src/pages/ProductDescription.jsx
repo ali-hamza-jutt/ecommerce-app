@@ -1,17 +1,30 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const ProductDescription = () => {
   const { productId } = useParams();
-  const product = useSelector((state) =>
-    state.products.items.find((item) => item.id === parseInt(productId))
-  );
-  const user = useSelector((state) => state.user.userData);
+  const products = useSelector((state) => state.products.items);
+  const product = products.find((item) => item.id === parseInt(productId));
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  // Debugging
+  console.log('Products:', products);
+  console.log('Product ID:', productId);
+  console.log('Found Product:', product);
 
   if (!product) {
     return <p>Product not found.</p>;
   }
+
+  const handleAddToCart = () => {
+    if (!user.isAuthenticated) {
+      navigate('/login');
+    } else {
+      navigate(`/add-to-cart/${productId}`);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -44,22 +57,12 @@ const ProductDescription = () => {
           <p className="text-gray-500 mb-2">Brand: {product.brandName}</p>
           <p className="text-gray-500 mb-2">Color: {product.colour}</p>
           <p className="text-gray-500 mb-2">Product Code: {product.productCode}</p>
-          <a
-            href={product.url}
-            className="block mt-4 text-blue-500 hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={handleAddToCart}
           >
-            View Product
-          </a>
-          {user.uid && (
-            <Link
-              to={`/add-to-cart/${product.id}`}
-              className="block mt-4 text-blue-500 hover:underline"
-            >
-              Add to Cart
-            </Link>
-          )}
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>

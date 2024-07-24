@@ -10,7 +10,7 @@ export const fetchProducts = async (categoryId) => {
           limit: 48
       },
       headers: {
-          'x-rapidapi-key': '115db57930msha0f3dc071ebede0p12df84jsn59e79842489a',
+          'x-rapidapi-key': 'a7dcb20d73msh65c4b51b935b859p12e644jsn207e363a16e5',
           'x-rapidapi-host': 'asos2.p.rapidapi.com'
       }
   };

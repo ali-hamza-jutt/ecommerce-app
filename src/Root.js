@@ -6,7 +6,7 @@ import ProductDescription from './pages/ProductDescription';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import AddToCart from './pages/AddToCart';
-import CartPage from './pages/CartPage';
+import Cart from './pages/Cart';
 
 // import ShoppingCart from './pages/ShoppingCart';
 // import Checkout from './pages/Checkout';
@@ -26,7 +26,7 @@ const Root = () => {
         <Route path="/productDescription/:productId" element={<ProductDescription />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/add-to-cart/:productId" element={<AddToCart />} />
         {/* <Route path="/productDescription/:productId" element={<ProductDescription />} /> */}
 

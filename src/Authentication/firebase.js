@@ -1,18 +1,23 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 const app = initializeApp({
-    apiKey: "AIzaSyAQuB3AtXIcIwEpR68u5k27i69u5UdnWAo",
-    authDomain: "asos-19555.firebaseapp.com",
-    projectId: "asos-19555",
-    storageBucket: "asos-19555.appspot.com",
-    messagingSenderId: "549816589718",
-    appId: "1:549816589718:web:db3d24260c04bafee711b7",
-    measurementId: "G-29T6Q3YTW3"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+    databaseURL: "https://asos-19555-default-rtdb.asia-southeast1.firebasedatabase.app" // Add the correct database URL here
+
+
 });
 
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+export const db = getDatabase(app);
+export { ref, set, onValue }; // Add these exports
 export default app;

@@ -1,111 +1,49 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { auth } from "../Authentication/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createSlice } from '@reduxjs/toolkit';
 
-// Extract only the necessary fields from Firebase user object
-const extractUserData = (user) => ({
-  uid: user.uid,
-  email: user.email,
-  displayName: user.displayName,
-});
+// Helper function to get the user from localStorage
+const getLocalStorageUser = () => {
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  const uid = localStorage.getItem('uid');
+  const displayName = localStorage.getItem('displayName');
 
-export const signup = createAsyncThunk(
-  "user/signup",
-  async ({ firstName, email, password }) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+  if (isAuthenticated && uid) {
     return {
-      displayName: firstName,
-      ...extractUserData(user),
+      uid,
+      displayName: displayName || '',
+      isAuthenticated: true,
     };
   }
-);
-
-export const login = createAsyncThunk("user/login", async ({ email, password }) => {
-  const userCredential = await signInWithEmailAndPassword(auth, email, password);
-  const user = userCredential.user;
-  return extractUserData(user);
-});
-
-export const logout = createAsyncThunk('user/logout', async () => {
-  await signOut(auth);
-  return {};
-});
-
-const initialState = {
-  userData: JSON.parse(localStorage.getItem('userData')) || {
-    uid: "",
-    email: "",
-    displayName: "",
-  },
-  loading: false,
-  error: null,
+  return {
+    uid: null,
+    displayName: '',
+    isAuthenticated: false,
+  };
 };
 
 const userSlice = createSlice({
-  name: "user",
-  initialState,
+  name: 'user',
+  initialState: getLocalStorageUser(),
   reducers: {
-    getCoordinates(state, action) {
-      state.longitude = action.payload.longitude;
-      state.latitude = action.payload.latitude;
+    setUser: (state, action) => {
+      state.uid = action.payload.uid;
+      state.displayName = action.payload.displayName;
+      state.isAuthenticated = true;
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('uid', action.payload.uid);
+      localStorage.setItem('displayName', action.payload.displayName);
     },
-    setProfileData(state, action) {
-      state.userData.email = action.payload.email;
-      state.userData.displayName = action.payload.displayName;
+    logout: (state) => {
+      state.uid = null;
+      state.displayName = '';
+      state.isAuthenticated = false;
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('uid');
+      localStorage.removeItem('displayName');
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(signup.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(signup.fulfilled, (state, action) => {
-        state.loading = false;
-        state.userData = action.payload;
-        localStorage.setItem('userData', JSON.stringify(action.payload));
-      })
-      .addCase(signup.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
-
-    builder
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.loading = false;
-        state.userData = action.payload;
-        localStorage.setItem('userData', JSON.stringify(action.payload));
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
-
-    builder
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.loading = false;
-        state.userData = {
-          uid: "",
-          email: "",
-          displayName: "",
-        };
-        localStorage.removeItem('userData');
-      })
-      .addCase(logout.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
   },
 });
 
+export const { setUser, logout } = userSlice.actions;
 export default userSlice.reducer;
 
-export const { getCoordinates, setProfileData } = userSlice.actions;
-
-export const selectUserData = (state) => state.user.userData || {};
+export const selectUserData = (state) => state.user;

@@ -1,149 +1,108 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { signup, login } from '../redux/userSlice';
+import { setUser } from '../redux/userSlice';
+import { auth } from '../Authentication/firebase.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
-const validationSchemaSignUp = Yup.object({
-  firstName: Yup.string().required('Required'),
-  lastName: Yup.string().required('Required'),
-  username: Yup.string().required('Required'),
-  email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .matches(/[a-zA-Z]/, 'Password must contain at least one letter')
-    .matches(/[0-9]/, 'Password must contain at least one number')
-    .matches(/[@$!%*?&#]/, 'Password must contain at least one special character')
-    .required('Required'),
-});
-
-const validationSchemaLogin = Yup.object({
-  email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .matches(/[a-zA-Z]/, 'Password must contain at least one letter')
-    .matches(/[0-9]/, 'Password must contain at least one number')
-    .matches(/[@$!%*?&#]/, 'Password must contain at least one special character')
-    .required('Required'),
+const validationSchema = Yup.object({
+    email: Yup.string().email('Invalid email address').required('Required'),
+    password: Yup.string()
+        .min(8, 'Password must be at least 8 characters')
+        .matches(/[a-zA-Z]/, 'Password must contain at least one letter')
+        .matches(/\d/, 'Password must contain at least one number')
+        .matches(/[@$!%*?&]/, 'Password must contain at least one special character')
+        .required('Required'),
 });
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const formikSignUp = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: '',
-    },
-    validationSchema: validationSchemaSignUp,
-    onSubmit: async (values) => {
-      try {
-        await dispatch(signup(values));
-        console.log('Signup successful');
-        navigate('/');
-      } catch (error) {
-        console.error('Signup error:', error);
-      }
-    },
-  });
+    const dispatch = useDispatch();
 
-  const formikLogin = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: validationSchemaLogin,
-    onSubmit: async (values) => {
-      try {
-        await dispatch(login(values));
-        console.log('Login successful');
-        navigate('/');
-      } catch (error) {
-        console.error('Login error:', error);
-      }
-    },
-  });
+    const handleSignup = async (values, { setSubmitting }) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+            const user = userCredential.user;
+            dispatch(setUser({ uid: user.uid, displayName: user.displayName }));
+            console.log('Signup successful');
+            navigate('/'); // Navigate to the home page on successful login
 
-  return (
-    <div className="login-page">
-      <h2>Login</h2>
-      <form onSubmit={formikLogin.handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formikLogin.handleChange}
-          value={formikLogin.values.email}
-        />
-        {formikLogin.errors.email && <div>{formikLogin.errors.email}</div>}
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formikLogin.handleChange}
-          value={formikLogin.values.password}
-        />
-        {formikLogin.errors.password && <div>{formikLogin.errors.password}</div>}
-        <button type="submit">Login</button>
-      </form>
-      <h2>Sign Up</h2>
-      <form onSubmit={formikSignUp.handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          id="firstName"
-          name="firstName"
-          type="text"
-          onChange={formikSignUp.handleChange}
-          value={formikSignUp.values.firstName}
-        />
-        {formikSignUp.errors.firstName && <div>{formikSignUp.errors.firstName}</div>}
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          id="lastName"
-          name="lastName"
-          type="text"
-          onChange={formikSignUp.handleChange}
-          value={formikSignUp.values.lastName}
-        />
-        {formikSignUp.errors.lastName && <div>{formikSignUp.errors.lastName}</div>}
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          onChange={formikSignUp.handleChange}
-          value={formikSignUp.values.username}
-        />
-        {formikSignUp.errors.username && <div>{formikSignUp.errors.username}</div>}
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formikSignUp.handleChange}
-          value={formikSignUp.values.email}
-        />
-        {formikSignUp.errors.email && <div>{formikSignUp.errors.email}</div>}
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formikSignUp.handleChange}
-          value={formikSignUp.values.password}
-        />
-        {formikSignUp.errors.password && <div>{formikSignUp.errors.password}</div>}
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
+        } catch (error) {
+            console.error('Signup error:', error.message);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleLogin = async (values, { setSubmitting }) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+            const user = userCredential.user;
+            dispatch(setUser({ uid: user.uid, displayName: user.displayName }));
+            console.log('Login successful');
+            navigate('/'); // Navigate to the home page on successful login
+
+        } catch (error) {
+            console.error('Login error:', error.message);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Login / Signup</h1>
+            <Formik
+                initialValues={{ email: '', password: '' }}
+                validationSchema={validationSchema}
+                onSubmit={handleLogin} // Change to handleSignup for signup form
+            >
+                {({ isSubmitting }) => (
+                    <Form>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <Field type="email" name="email" />
+                            <ErrorMessage name="email" component="div" />
+                        </div>
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <Field type="password" name="password" />
+                            <ErrorMessage name="password" component="div" />
+                        </div>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+            <Formik
+                initialValues={{ email: '', password: '' }}
+                validationSchema={validationSchema}
+                onSubmit={handleSignup} // Change to handleLogin for login form
+            >
+                {({ isSubmitting }) => (
+                    <Form>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <Field type="email" name="email" />
+                            <ErrorMessage name="email" component="div" />
+                        </div>
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <Field type="password" name="password" />
+                            <ErrorMessage name="password" component="div" />
+                        </div>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    );
 };
 
 export default LoginPage;
