@@ -41,6 +41,26 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
         navigate('/');
     };
 
+    const redirectToLogin = () => {
+        navigate('/login');
+    };
+
+    const handleCartClick = () => {
+        if (userData.isAuthenticated) {
+            navigate('/cart');
+        } else {
+            redirectToLogin();
+        }
+    };
+
+    const handleOrdersClick = () => {
+        if (userData.isAuthenticated) {
+            navigate('/orders');
+        } else {
+            redirectToLogin();
+        }
+    };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
@@ -55,9 +75,18 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
         };
     }, []);
 
+    useEffect(() => {
+        if (isMenuOpen) {
+            // Prevent horizontal scrolling when menu is open
+            document.body.style.overflowX = 'hidden';
+        } else {
+            document.body.style.overflowX = 'auto';
+        }
+    }, [isMenuOpen]);
+
     return (
         <>
-            <div className="wrapper">
+            <div className={`wrapper ${isMenuOpen ? 'menu-open' : ''}`}>
                 <div className="logoWrapper">
                     <a href="/" className="logoText">
                         <h1>.Asos</h1>
@@ -84,30 +113,22 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
                         </div>
                     </div>
                     <div className="menuWrapper">
-
                         {userData.isAuthenticated ? (
-                           
-                                
-                               
-                                
-                                    <div className="logoutButton">
-                                        <button onClick={handleLogout}>Logout</button>
-                                    </div>
-                             
-                            
+                            <div className="logoutButton">
+                                <button onClick={handleLogout}>Logout</button>
+                            </div>
                         ) : (
                             <div className="loginWrapper">
                                 <Link to="/login">
-                                    <button className='loginButton'>Login</button>
+                                    <button>Login</button>
                                 </Link>
                             </div>
                         )}
-
-                        <div className="menuOption">
-                            <Link to="/orders">Orders</Link>
+                        <div className="menuOption" onClick={handleOrdersClick}>
+                            Orders
                         </div>
-                        <div className="menuOption">
-                            <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ fontSize: 36 }} /></Link>
+                        <div className="menuOption" onClick={handleCartClick}>
+                            <ShoppingCartOutlinedIcon sx={{ fontSize: 36 }} />
                         </div>
                     </div>
                 </div>
@@ -115,61 +136,63 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
                     <div className="menuIcon" onClick={toggleMenu}>
                         <MenuRoundedIcon />
                     </div>
-                    <div className="searchWrapper">
-                        <div className="searchBarWrapper">
-                            <form onSubmit={onSearchSubmit}>
-                                <input
-                                    className="searchInput"
-                                    type="text"
-                                    placeholder="Search"
-                                    onChange={(e) => setInput(e.target.value)}
-                                    value={input}
-                                />
-                                <button className="iconButton" type="submit">
-                                    <SearchIcon />
-                                </button>
-                            </form>
+                    <div className="menuWrapper">
+                        {userData.isAuthenticated ? (
+                            <div className="logoutButton">
+                                <button onClick={handleLogout}>Logout</button>
+                            </div>
+                        ) : (
+                            <div className="loginWrapper">
+                                <Link to="/login">
+                                    <button>Login</button>
+                                </Link>
+                            </div>
+                        )}
+                        <div className="menuOption" onClick={handleOrdersClick}>
+                            Orders
+                        </div>
+                        <div className="menuOption" onClick={handleCartClick}>
+                            <ShoppingCartOutlinedIcon sx={{ fontSize: 36 }} />
+                        </div>
+                        <h2 className="categoryHeading">Categories</h2>
+                        <div className="categoryBar open">
+                            <div className="categoryOption" onClick={() => handleCategoryClick(4210)}>
+                                Accessories
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(4209)}>
+                                Sneakers
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(18423)}>
+                                Work Wear
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(13233)}>
+                                Swim Wear
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(28727)}>
+                                Track Suit
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(28365)}>
+                                Women
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(51084)}>
+                                Women Daska
+                            </div>
+                            <div className="categoryOption" onClick={() => handleCategoryClick(25001)}>
+                                Women Hair
+                            </div>
                         </div>
                     </div>
-                    <div className="menuWrapper">
-
-{userData.isAuthenticated ? (
-   
-        
-       
-        
-            <div className="logoutButton">
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-     
-    
-) : (
-    <div className="loginWrapper">
-        <Link to="/login">
-            <button>Login</button>
-        </Link>
-    </div>
-)}
-
-<div className="menuOption">
-    <Link to="/orders">Orders</Link>
-</div>
-<div className="menuOption">
-    <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ fontSize: 36 }} /></Link>
-</div>
-</div>
                 </div>
             </div>
-            <div className="categoryBar">
-                <div className="categoryOption" onClick={() => handleCategoryClick(4210)}>Accessories</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(4209)}>Sneakers</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(9718)}>Men</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(18423)}>Work Wear</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(13233)}>Swim Wear</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(28727)}>Track Suit</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(28365)}>Women</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(51084)}>Women Daska</div>
-                <div className="categoryOption" onClick={() => handleCategoryClick(25001)}>Women Hair</div>
+            <div className="categoryBar-pc">
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(4210)}>Accessories</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(4209)}>Sneakers</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(18423)}>Work Wear</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(13233)}>Swim Wear</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(28727)}>Track Suit</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(28365)}>Women</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(51084)}>Women Daska</div>
+                <div className="categoryOption-pc" onClick={() => handleCategoryClick(25001)}>Women Hair</div>
             </div>
         </>
     );

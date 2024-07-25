@@ -9,11 +9,15 @@ import LoadingAnimation from './LoadingAnimation';
 
 const ProductList = () => {
     const dispatch = useDispatch();
-    const { categoryId } = useParams(); // Get categoryId from URL parameters
+    let { categoryId } = useParams(); // Get categoryId from URL parameters
     const products = useSelector((state) => state.products.items);
     const productStatus = useSelector((state) => state.products.status);
     const error = useSelector((state) => state.products.error);
 
+    if(categoryId===undefined)
+    {
+        categoryId=18423;
+    }
     useEffect(() => {
         dispatch(clearProducts()); // Clear previous products
         if (categoryId) {

@@ -1,14 +1,19 @@
 :root {
-  --navbar-background: #181c24; /* Navbar background color */
-  --navbar-text: #ffffff; /* Text color for the navbar */
-  --profile-button-background: #ff4500; /* Background color for profile button */
-  --search-background: #efefef; /* Background color for search input */
-  --category-bar-background: #282c3c; /* Background color for the category bar */
-  --menu-wrapper-background: #ffffff; /* Background color for menu wrapper */
-  --menu-option-text: #ffffff; /* Text color for menu options */
-  --category-option-text: #ffffff; /* Text color for category options */
-  --profile-menu-background: #ffffff; /* Background color for profile menu */
-  --profile-menu-hover-background: #f0f0f0; /* Background color for profile menu item on hover */
+  --navbar-background: #181c24;
+  --navbar-text: #ffffff;
+  --profile-button-background: #ff4500;
+  --search-background: #efefef;
+  --category-bar-background: #282c3c;
+  --menu-wrapper-background: transparent;
+  --menu-option-text: #ffffff;
+  --category-option-text: #ffffff;
+  --profile-menu-background: #ffffff;
+  --profile-menu-hover-background: #f0f0f0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 .wrapper {
@@ -20,12 +25,18 @@
   background-color: var(--navbar-background);
   color: var(--navbar-text);
   position: relative;
+  overflow: hidden;
+}
+
+.wrapper.menu-open {
+  overflow-x: hidden;
 }
 
 .logoWrapper {
   display: flex;
-  flex: 0.1;
-  justify-content: center;
+  flex: 0.25;
+  justify-content: flex-start;
+  padding-left: 2rem;
 }
 
 .logoText {
@@ -35,14 +46,14 @@
 
 .logoText h1 {
   font-family: 'Playwrite PL', cursive;
-  font-size: 28px; /* Adjusted font size */
+  font-size: 28px;
 }
 
 .menuIcon {
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-left: 8px;
+  margin: 10px;
 }
 
 @media (min-width: 768px) {
@@ -69,7 +80,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  height: 100%;
+  height: 100vh;
   width: 50%;
   background-color: var(--navbar-background);
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
@@ -77,6 +88,7 @@
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   padding-top: 2.5vh;
+  overflow-y: scroll;
 }
 
 .dropdownMenu.open {
@@ -96,18 +108,16 @@
   flex: 0.6;
   width: max-content;
   align-items: center;
-  
   background-color: var(--search-background);
   border-radius: 50px;
   height: 36px;
   margin: 0 25px;
   padding: 0 10px;
-  
 }
 
 @media (min-width: 768px) {
   .searchBarWrapper {
-    width: 30%; /* Adjusted width for desktop view */
+    width: 30%;
   }
 }
 
@@ -140,7 +150,6 @@ form {
   color: #000;
 }
 
-
 .logoutWrapper button {
   display: inline-flex;
   justify-content: center;
@@ -151,6 +160,7 @@ form {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  padding: 10px 0;
 }
 
 .loginWrapper a {
@@ -159,54 +169,96 @@ form {
   margin: 0 20px 0 0;
   text-decoration: none;
   color: var(--navbar-text);
+  padding: 10px 0;
 }
 
 .menuWrapper {
   display: flex;
-  flex: 0.3;
-  justify-content: center;
   flex-direction: column;
-  margin: 0 40px 0 20px;
-  background-color: transparent; /* Updated background color */
-
-
+  padding: 20px;
+  background-color: var(--menu-wrapper-background);
 }
 
 @media (min-width: 768px) {
+  .menuOption{
+    padding: 12px;
+  }
+
   .menuWrapper {
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     margin: 0;
+    
   }
+  .categoryBar {
+    display: flex;
+    background-color: var(--category-bar-background);
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    padding: 10px;
+  }
+
+  
+
+
 }
+
 
 .menuOption a {
   display: block;
-  padding: 10px;
+  padding: 10px 0;
   text-decoration: none;
-  color: var(--menu-option-text); /* Updated text color */
-  font-size: 20px; /* Increased font size */
+  color: var(--menu-option-text);
+  font-size: 20px;
   font-weight: 500;
 }
 
-.categoryBar {
+
+
+
+
+.logoutButton,
+.loginButton {
+  font-size: 20px;
+  margin-left: 10px;
+  margin: 0;
+}
+.categoryOption {
+  text-decoration: none;
+  color: var(--category-option-text);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.categoryBar-pc{
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
   background-color: var(--category-bar-background); /* Updated background color */
   border-top: 1px solid #ddd;
 }
-
-.categoryOption{
+.categoryOption-pc {
   text-decoration: none;
-  color: var(--category-option-text); /* Updated text color */
-  font-size: 18px; /* Increased font size */
+  color: var(--category-option-text);
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+  padding: 5px 0;
 }
 
-
-.logoutButton,.loginButton{
+@media (max-width: 768px) {
+  .categoryBar-pc{
+    display: none;
+  }
+  .menuOption{
+  padding: 12px 0;
+  cursor:pointer
+}
+}
+.categoryHeading{
   font-size: 20px;
-  margin: 4px;
+  color:#feeeca;
 }

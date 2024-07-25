@@ -63,7 +63,7 @@ const ProductDescription = () => {
 
             {/* Product Details */}
             <div className="w-full md:w-1/2 product-details">
-              <h2 className="text-3xl font-bold mb-4 product-name">{product.name}</h2>
+              <h2 className="text-3xl font-bold mb-4 product-name" style={{overflowY:'hidden'}}>{product.name}</h2>
               <div className="details-container flex flex-wrap text-lg mb-4">
                 <p className="text-gray-700 mr-4">Price: <span className="font-semibold text-blue-500">{product.price.current.text}</span></p>
                 <p className="text-gray-500 mr-4">Brand: <span className="font-semibold text-blue-500">{product.brandName}</span></p>
