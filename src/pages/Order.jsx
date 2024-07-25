@@ -33,39 +33,63 @@ const Order = () => {
     return <p>Please log in to view your orders.</p>;
   }
 
+  const formatDateTime = (dateTimeString) => {
+    const [date, time] = dateTimeString.split('T');
+    const formattedTime = time.split('.')[0];
+    return { formattedDate: date, formattedTime };
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">Your Orders</h2>
       {orders.length === 0 ? (
         <p>You have no orders.</p>
       ) : (
-        orders.map((order, index) => (
-          <div key={index} className="mb-4 border p-4 rounded">
-            <h3 className="text-lg font-bold">Order {index + 1}</h3>
-            <div className="mb-2">
-              <h4 className="font-bold">Shipping Address</h4>
-              <p>Country: {order.shippingAddress.country}</p>
-              <p>State: {order.shippingAddress.state}</p>
-              <p>City: {order.shippingAddress.city}</p>
-              <p>Street Address: {order.shippingAddress.streetAddress}</p>
-              <p>Zip Code: {order.shippingAddress.zipCode}</p>
+        orders.map((order, index) => {
+          const { formattedDate, formattedTime } = formatDateTime(order.orderDate);
+          return (
+            <div key={index} className="mb-4 p-4" style={{ backgroundColor: '#EEEDEB', borderRadius: '8px' }}>
+              <h3 className="text-xl font-bold mb-2">Order {index + 1}</h3>
+              <div>
+                <p className="font-bold">Order Date: {formattedDate}</p>
+                <p className="font-bold">Order Time: {formattedTime}</p>
+              </div>
+              <div className="mb-4">
+              <h3 className="text-xl font-bold mb-2">Shipping Details</h3>
+                <p>Country: {order.shippingAddress.country}</p>
+                <p>State: {order.shippingAddress.state}</p>
+                <p>City: {order.shippingAddress.city}</p>
+                <p>Street Address: {order.shippingAddress.streetAddress}</p>
+                <p>Zip Code: {order.shippingAddress.zipCode}</p>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-bold my-3">Cart Items</h4>
+                {order.items.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4 p-4"
+                    style={{ backgroundColor: '#FFF', borderRadius: '8px' }}
+                  >
+                    <img
+                      className="w-24 h-24 object-cover rounded-lg border border-gray-300"
+                      src={`https://${item.imageUrl}`}
+                      alt={item.name}
+                    />
+                    <div className="flex-grow">
+                      <h4 className="font-bold">{item.name}</h4>
+                      <p>Color: {item.color}</p>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Price: ${item.price}</p>
+                      <p>Total Price: ${item.totalPrice}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="font-bold">Total Bill: ${order.totalBill}</p>
+             
             </div>
-            <div className="mb-2">
-              <h4 className="font-bold">Cart Items</h4>
-              {order.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="border p-2 rounded mb-2">
-                    <img src={`https://${item.imageUrl}`} alt={item.name} className="mb-2" />
-                  <p><strong>Name:</strong> {item.name}</p>
-                  <p><strong>Color:</strong> {item.color}</p>
-                  <p><strong>Quantity:</strong> {item.quantity}</p>
-                  <p><strong>Price:</strong> ${item.price}</p>
-                  <p><strong>Total Price:</strong> ${item.totalPrice}</p>
-                </div>
-              ))}
-            </div>
-            <p className="font-bold">Total Bill: ${order.totalBill}</p>
-          </div>
-        ))
+          );
+        })
       )}
     </div>
   );
