@@ -1,5 +1,7 @@
 Welcome to the E-commerce project repository! This project is designed to showcase a complete e-commerce application with features such as navigation, category selection, product listing, product details, cart management, multi-step checkout, order management, and user authentication.
 
+Production link: https://ecommerce-app-rho-puce.vercel.app/
+
 Features
 
 Navigation
