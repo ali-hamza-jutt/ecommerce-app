@@ -1,26 +1,41 @@
+:root {
+  --navbar-background: #181c24; /* Navbar background color */
+  --navbar-text: #ffffff; /* Text color for the navbar */
+  --profile-button-background: #ff4500; /* Background color for profile button */
+  --search-background: #efefef; /* Background color for search input */
+  --category-bar-background: #282c3c; /* Background color for the category bar */
+  --menu-wrapper-background: #ffffff; /* Background color for menu wrapper */
+  --menu-option-text: #ffffff; /* Text color for menu options */
+  --category-option-text: #ffffff; /* Text color for category options */
+  --profile-menu-background: #ffffff; /* Background color for profile menu */
+  --profile-menu-hover-background: #f0f0f0; /* Background color for profile menu item on hover */
+}
+
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: 90px;
   padding: 12px 4px 4px 12px;
-  background-color: white;
-  color: black;
-  margin: 0.5rem 0 1.5rem 0;
+  background-color: var(--navbar-background);
+  color: var(--navbar-text);
   position: relative;
 }
 
 .logoWrapper {
   display: flex;
+  flex: 0.1;
+  justify-content: center;
 }
 
 .logoText {
   text-decoration: none;
-  color: #000000;
+  color: var(--navbar-text);
 }
 
 .logoText h1 {
   font-family: 'Playwrite PL', cursive;
+  font-size: 28px; /* Adjusted font size */
 }
 
 .menuIcon {
@@ -56,7 +71,7 @@
   right: 0;
   height: 100%;
   width: 50%;
-  background-color: white;
+  background-color: var(--navbar-background);
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
@@ -69,26 +84,30 @@
 }
 
 .searchWrapper {
+  width: auto;
   display: flex;
+  flex: 1;
   padding: 10px 0;
-  width: 100%;
+  justify-content: center;
 }
 
 .searchBarWrapper {
   display: flex;
-  flex: 1;
+  flex: 0.6;
+  width: max-content;
   align-items: center;
-  background-color: #efefef;
+  
+  background-color: var(--search-background);
   border-radius: 50px;
   height: 36px;
   margin: 0 25px;
   padding: 0 10px;
-  width: 100%;
+  
 }
 
 @media (min-width: 768px) {
   .searchBarWrapper {
-    width: 60%;
+    width: 30%; /* Adjusted width for desktop view */
   }
 }
 
@@ -98,12 +117,13 @@ form {
 }
 
 .searchInput {
-  background-color: #efefef;
+  background-color: var(--search-background);
   width: 100%;
   border: none;
   font-size: 16px;
   margin-right: 5px;
   padding-right: 20px;
+  color: #000;
 }
 
 .searchInput:focus {
@@ -117,21 +137,17 @@ form {
   padding: 0;
   display: flex;
   align-items: center;
-  color: #000000;
+  color: #000;
 }
 
-.profileWrapper {
-  display: flex;
-  padding: 10px 0;
-}
 
 .logoutWrapper button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 10px 16px;
-  background-color: #ff4500;
-  color: white;
+  background-color: var(--profile-button-background);
+  color: var(--navbar-text);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -142,14 +158,18 @@ form {
   align-items: center;
   margin: 0 20px 0 0;
   text-decoration: none;
-  color: black;
+  color: var(--navbar-text);
 }
-
 
 .menuWrapper {
   display: flex;
+  flex: 0.3;
+  justify-content: center;
   flex-direction: column;
-  margin: 0 20px 0 0;
+  margin: 0 40px 0 20px;
+  background-color: transparent; /* Updated background color */
+
+
 }
 
 @media (min-width: 768px) {
@@ -164,63 +184,29 @@ form {
   display: block;
   padding: 10px;
   text-decoration: none;
-  color: black;
-  font-size: 14px;
+  color: var(--menu-option-text); /* Updated text color */
+  font-size: 20px; /* Increased font size */
   font-weight: 500;
 }
 
 .categoryBar {
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
-  background-color: white;
+  padding: 15px 0;
+  background-color: var(--category-bar-background); /* Updated background color */
   border-top: 1px solid #ddd;
 }
 
-.categoryOption a {
+.categoryOption{
   text-decoration: none;
-  color: black;
-  font-size: 14px;
+  color: var(--category-option-text); /* Updated text color */
+  font-size: 18px; /* Increased font size */
   font-weight: 500;
-  padding: 10px;
-}
-
-.profileContainer {
-  display: flex;
-  align-items: center;
-}
-
-.profileIcon {
-  display: flex;
-  align-items: center;
   cursor: pointer;
 }
 
-.arrowIcon {
-  cursor: pointer;
-  margin-left: 5px;
-}
 
-.profileMenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-}
-
-.profileMenu button {
-  padding: 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-}
-
-.profileMenu button:hover {
-  background-color: #f0f0f0;
+.logoutButton,.loginButton{
+  font-size: 20px;
+  margin: 4px;
 }

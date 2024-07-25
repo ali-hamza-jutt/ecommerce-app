@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsThunk, clearProducts } from '../redux/productSlice';
 import ProductCard from './ProductCard';
 import { useParams } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -31,12 +33,17 @@ const ProductList = () => {
     }
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 " style={{ backgroundColor: '#feeeca' }}>
+        <>
+        <Navbar/>
+        <div className="p-4 sm:px-6 lg:px-8 " style={{ backgroundColor: '#feeeca',minHeight:'50vh' }}>
             <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
                 {content}
             </div>
         </div>
+        <Footer/>
+        </>
     );
 };
 
 export default ProductList;
+ 
