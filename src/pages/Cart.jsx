@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import LoadingAnimation from '../components/LoadingAnimation.jsx';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,13 @@ const Cart = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div >
+        <Navbar/>
+        <LoadingAnimation/>
+        <Footer/>
+      </div>
+    )
   }
 
   if (!user.isAuthenticated) {

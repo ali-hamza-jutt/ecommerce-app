@@ -4,6 +4,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../Authentication/firebase.js';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import LoadingAnimation from '../components/LoadingAnimation.jsx';
 const Order = () => {
   const user = useSelector((state) => state.user);
   const [orders, setOrders] = useState([]);
@@ -27,7 +28,14 @@ const Order = () => {
   }, [user.isAuthenticated, user.uid]);
 
   if (loading) {
-    return <p>Loading...</p>;
+
+    return (
+      <div >
+        <Navbar/>
+        <LoadingAnimation/>
+        <Footer/>
+      </div>
+    )
   }
 
   if (!user.isAuthenticated) {

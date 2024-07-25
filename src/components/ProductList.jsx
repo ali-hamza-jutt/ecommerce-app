@@ -5,6 +5,7 @@ import ProductCard from './ProductCard';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import LoadingAnimation from './LoadingAnimation';
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -23,7 +24,13 @@ const ProductList = () => {
     let content;
 
     if (productStatus === 'loading') {
-        content = <p>Loading...</p>;
+        return(
+            <div >
+              <Navbar/>
+              <LoadingAnimation/>
+              <Footer/>
+            </div>)
+          
     } else if (productStatus === 'succeeded') {
         content = products.map((product) => (
             <ProductCard key={product.id} product={product} />
