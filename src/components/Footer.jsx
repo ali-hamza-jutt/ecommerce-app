@@ -6,11 +6,11 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h4>Company</h4>
+          <h4>Asos</h4>
           <p>
             1234 Street Address<br />
             City, State, 12345<br />
-            Email: contact@company.com<br />
+            Email: contact@asos.com<br />
             Phone: (123) 456-7890
           </p>
         </div>
@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Asos. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -1,0 +1,3 @@
+.color-input:focus,.quantity-input:focus{
+    outline: none;
+}
