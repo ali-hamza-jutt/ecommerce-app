@@ -1,0 +1,106 @@
+.main-container {
+    background-color: #e3e3e3;
+    padding: 20px;
+    overflow-y: auto; /* Ensure container takes up full width */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+  }
+  
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .main-image {
+    width: 100%;
+    height: 95vh;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .small-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .add-to-cart-button {
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #232f3e;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+  }
+  
+  .product-name {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  
+  .product-details {
+    flex-basis: 50%; /* Equal width for product details */
+  }
+  
+  .product-description {
+    margin-bottom: 20px;
+  }
+  
+  .notes {
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .main-container {
+      padding: 0;
+    }
+  
+    .product-description-container {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .image-container {
+      order: 2; /* Move image container below the main image */
+      margin-bottom: 20px; /* Add margin between image container and main image */
+
+        flex-direction: row;
+        justify-content: center;
+    
+    }
+  
+    .main-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px; /* Margin between main image and button */
+    }
+  
+    .product-details {
+      order: 3; /* Ensure product details are last */
+    }
+  
+    .add-to-cart-button {
+      order: 1; /* Move button above product description */
+    }
+  
+    .product-description {
+      margin-bottom: 20px;
+      order: 2; /* Ensure product description comes after the button */
+    }
+  
+    .notes {
+      margin-top: 20px;
+    }
+    .details-container{
+        flex-direction: column;
+    }
+  }
+  
