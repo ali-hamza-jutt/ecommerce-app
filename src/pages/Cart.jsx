@@ -4,6 +4,11 @@ import { ref, onValue, remove } from 'firebase/database';
 import { db } from '../Authentication/firebase.js'; // Adjust path as necessary
 import { setCartItems, selectCartItems } from '../redux/cartSlice.js'; // Adjust path as necessary
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer'
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -66,40 +71,49 @@ const Cart = () => {
   }, 0);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <>
+    <Navbar/>
+    <div className="w-full p-6">
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         cartItems.map((item) => (
-          <div key={item.productId} className="flex items-center gap-4 mb-4">
-            <img
-              className="w-24 h-24 object-cover rounded-lg border border-gray-300"
-              src={`https://${item.imageUrl}`}
-              alt={item.name}
-            />
-            <div>
-              <h3 className="text-lg font-bold">{item.name}</h3>
-              <p>Color: {item.color}</p>
-              <p>Quantity: {item.quantity}</p>
-              <p>Price: ${item.price}</p>
-              <p>Total Price: ${item.totalPrice}</p> {/* Display totalPrice */}
-            </div>
-            <div className="flex gap-2 ml-auto">
-              <button
-                className="px-4 py-2 bg-yellow-500 text-white rounded"
-                onClick={() => handleEdit(item)}
-              >
-                Edit
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={() => handleDelete(item.productId)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+          <div
+  key={item.productId}
+  className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4 p-4"
+  style={{ backgroundColor: '#EEEDEB', borderRadius: '8px' }}
+>
+  <img
+    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
+    src={`https://${item.imageUrl}`}
+    alt={item.name}
+  />
+  <div className="flex-grow">
+    <h3 className="text-lg font-bold">{item.name}</h3>
+    <p>Color: {item.color}</p>
+    <p>Quantity: {item.quantity}</p>
+    <p>Price: {item.price}</p>
+    <p>Total Price: ${item.totalPrice}</p> {/* Display totalPrice */}
+  </div>
+  <div className="flex flex-col sm:flex-row sm:justify-start gap-2">
+    <button
+      className="px-4 py-2 text-white rounded"
+      style={{ backgroundColor: '#232f3e' }}
+      onClick={() => handleEdit(item)}
+    >
+      <EditTwoToneIcon />
+    </button>
+    <button
+      className="px-4 py-2 text-white rounded"
+      style={{ backgroundColor: '#232f3e' }}
+      onClick={() => handleDelete(item.productId)}
+    >
+      <DeleteOutlineSharpIcon />
+    </button>
+  </div>
+</div>
+
         ))
       )}
       <div className="mt-6">
@@ -107,11 +121,14 @@ const Cart = () => {
       </div>
       <button
         className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+        style={{fontSize:'18px',backgroundColor:'#232f3e'}}
         onClick={() => navigate('/checkout')}
       >
-        Checkout
+        Checkout <ShoppingCartCheckoutIcon sx={{ fontSize: 32 }} />
       </button>
     </div>
+    <Footer/>
+              </>
   );
 };
 

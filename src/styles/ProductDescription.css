@@ -100,7 +100,8 @@
       margin-top: 20px;
     }
     .details-container{
-        flex-direction: column;
-    }
+      
+      flex-direction: column;
+  }
   }
   
