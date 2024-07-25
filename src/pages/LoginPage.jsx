@@ -6,6 +6,8 @@ import { setUser } from '../redux/userSlice';
 import { auth } from '../Authentication/firebase.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
@@ -50,13 +52,15 @@ const LoginPage = () => {
     };
 
     return (
+        <>
+        <Navbar/>
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login / Signup</h2>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900" style={{overflow:'hidden'}}>Login / Signup</h2>
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-6 shadow sm:rounded-lg sm:px-10">
+                <div className="bg-[#efefef] py-8 px-6 shadow sm:rounded-lg sm:px-10">
                     <Formik
                         initialValues={{ email: '', password: '' }}
                         validationSchema={validationSchema}
@@ -64,33 +68,35 @@ const LoginPage = () => {
                     >
                         {({ isSubmitting }) => (
                             <Form className="space-y-6">
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                        Email
-                                    </label>
-                                    <Field
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        autoComplete="email"
-                                        required
-                                        className="mt-1 block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md px-3 py-2"
-                                    />
-                                    <ErrorMessage name="email" component="p" className="mt-2 text-sm text-red-600" />
-                                </div>
-                                <div>
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                        Password
-                                    </label>
-                                    <Field
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        required
-                                        className="mt-1 block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md px-3 py-2"
-                                    />
-                                    <ErrorMessage name="password" component="p" className="mt-2 text-sm text-red-600" />
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                            Email
+                                        </label>
+                                        <Field
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            autoComplete="email"
+                                            required
+                                            className="mt-1 block w-full shadow-sm sm:text-sm focus:outline-none border-gray-300 rounded-md px-3 py-2"
+                                        />
+                                        <ErrorMessage name="email" component="p" className="mt-2 text-sm text-red-600" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                            Password
+                                        </label>
+                                        <Field
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            required
+                                            className="mt-1 block w-full shadow-sm sm:text-sm focus:outline-none border-gray-300 rounded-md px-3 py-2"
+                                        />
+                                        <ErrorMessage name="password" component="p" className="mt-2 text-sm text-red-600" />
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <button
@@ -109,36 +115,38 @@ const LoginPage = () => {
                         initialValues={{ email: '', password: '' }}
                         validationSchema={validationSchema}
                         onSubmit={handleSignup} // Change to handleLogin for login form
-                    >
+                        >
                         {({ isSubmitting }) => (
                             <Form className="mt-8 space-y-6">
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                        Email
-                                    </label>
-                                    <Field
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        autoComplete="email"
-                                        required
-                                        className="mt-1 block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md px-3 py-2"
-                                    />
-                                    <ErrorMessage name="email" component="p" className="mt-2 text-sm text-red-600" />
-                                </div>
-                                <div>
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                        Password
-                                    </label>
-                                    <Field
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        required
-                                        className="mt-1 block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md px-3 py-2"
-                                    />
-                                    <ErrorMessage name="password" component="p" className="mt-2 text-sm text-red-600" />
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                            Email
+                                        </label>
+                                        <Field
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            autoComplete="email"
+                                            required
+                                            className="mt-1 block w-full shadow-sm sm:text-sm focus:outline-none border-gray-300 rounded-md px-3 py-2"
+                                        />
+                                        <ErrorMessage name="email" component="p" className="mt-2 text-sm text-red-600" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                            Password
+                                        </label>
+                                        <Field
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            required
+                                            className="mt-1 block w-full shadow-sm sm:text-sm focus:outline-none border-gray-300 rounded-md px-3 py-2"
+                                        />
+                                        <ErrorMessage name="password" component="p" className="mt-2 text-sm text-red-600" />
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <button
@@ -155,6 +163,8 @@ const LoginPage = () => {
                 </div>
             </div>
         </div>
+        <Footer/>
+     </>
     );
 };
 
