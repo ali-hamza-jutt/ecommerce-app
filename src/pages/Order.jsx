@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../Authentication/firebase.js';
-
+import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
 const Order = () => {
   const user = useSelector((state) => state.user);
   const [orders, setOrders] = useState([]);
@@ -40,6 +41,8 @@ const Order = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">Your Orders</h2>
       {orders.length === 0 ? (
@@ -92,6 +95,8 @@ const Order = () => {
         })
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 

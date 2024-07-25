@@ -31,39 +31,23 @@ const AddToCart = () => {
   if (!product && !state) {
     return <p>Product not found.</p>;
   }
+
   const handleAddToCart = () => {
     if (user.isAuthenticated) {
-      // Debugging logs
-      console.log('Product:', product);
-      console.log('State:', state);
-      
       const itemPrice = product?.price.current.text || state.price;
-      const itemQuantity = quantity; // Ensure quantity is an integer
-
-      const itemPriceNumber = parseFloat(itemPrice.replace(/[^\d.-]/g, '')); // Remove non-numeric characters
+      const itemQuantity = quantity;
+      const itemPriceNumber = parseFloat(itemPrice.replace(/[^\d.-]/g, ''));
       const itemQuantityNumber = Number(itemQuantity);
-
       const totalPrice = itemPriceNumber * itemQuantityNumber;
-
-    
-      
-
-
-      // More debugging logs
-      console.log('Item Price:', itemPrice);
-      console.log('Item Quantity:', itemQuantity);
-      console.log('Total Price:', totalPrice);
-      console.log('Color ',color)
 
       const cartItem = {
         productId,
         name: product?.name || state?.name || 'Unnamed Product',
-         price: itemPrice,
-         imageUrl: product?.imageUrl || state.imageUrl,
-
+        price: itemPrice,
+        imageUrl: product?.imageUrl || state?.imageUrl,
         color,
         quantity: itemQuantity,
-        totalPrice:totalPrice // Calculate totalPrice
+        totalPrice,
       };
 
       const cartRef = ref(db, `carts/${user.uid}/${productId}`);
@@ -78,30 +62,23 @@ const AddToCart = () => {
       navigate('/login');
     }
   };
-  const additionalImageUrls = [
-    product.imageUrl,
-    ...product.additionalImageUrls
-  ];
-  
-
 
   return (
     <>
-    <Navbar />
-    
-    <div className="main-container">
+      <Navbar />
+      <div className="main-container">
         <div className="w-full p-6">
           <div className="flex flex-col md:flex-row gap-6 product-description-container">
             {/* Left Side Images */}
             <div className="image-container">
-              {additionalImageUrls.map((url, index) => (
+              {product && product.additionalImageUrls.map((url, index) => (
                 <img
                   key={index}
                   className="small-image"
                   src={`https://${url}`}
                   alt={`${product.name} ${index}`}
                   onClick={() => setMainImageUrl(url)}
-                  onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'} // Add a placeholder image if needed
+                  onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'}
                 />
               ))}
             </div>
@@ -111,19 +88,19 @@ const AddToCart = () => {
               <img
                 className="main-image"
                 src={`https://${mainImageUrl}`}
-                alt={product.name}
-                onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'} // Add a placeholder image if needed
+                alt={product?.name}
+                onError={(e) => e.target.src = 'path/to/placeholder-image.jpg'}
               />
             </div>
 
             {/* Product Details */}
             <div className="w-full md:w-1/2 product-details">
-              <h2 className="text-3xl font-bold mb-4 product-name">{product.name}</h2>
+              <h2 className="text-3xl font-bold mb-4 product-name">{product?.name}</h2>
               <div className="details-container flex flex-wrap text-lg mb-4">
-                <p className="text-gray-700 mr-4">Price: <span className="font-semibold text-500">{product.price.current.text}</span></p>
-                <p className="text-gray-500 mr-4">Brand: <span className="font-semibold text-500">{product.brandName}</span></p>
-                <p className="text-gray-500 mr-4">Color: <span className="font-semibold text-500">{product.colour}</span></p>
-                <p className="text-gray-500">Product Code: <span className="font-semibold text-500">{product.productCode}</span></p>
+                <p className="text-gray-700 mr-4">Price: <span className="font-semibold text-500">{product?.price.current.text}</span></p>
+                <p className="text-gray-500 mr-4">Brand: <span className="font-semibold text-500">{product?.brandName}</span></p>
+                <p className="text-gray-500 mr-4">Color: <span className="font-semibold text-500">{product?.colour}</span></p>
+                <p className="text-gray-500">Product Code: <span className="font-semibold text-500">{product?.productCode}</span></p>
               </div>
               
               {/* Product Description Section */}
@@ -141,47 +118,43 @@ const AddToCart = () => {
                 <p className="text-gray-600">Vintage: No</p>
               </div>
 
-
-  
-      <div className="flex flex-col gap-6">
-        <div>
-          <label htmlFor="quantity" className="block mb-2 ">Quantity</label>
-          <input
-            id="quantity"
-            type="number"
-            min="1"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
-            className="border border-gray-300 rounded p-2 w-full quantity-input"
-          />
- <label htmlFor="color" className="block mb-2 ">Color</label>
-<select 
-  id="color"
-  value={color} // Ensure this reflects the selected value
-  onChange={(e) => setColor(e.target.value)}
-  className="border border-gray-300 rounded p-2 w-full color-input"
->
-  {/* Make sure to use product.colour to create the option */}
-  <option value={product.colour}>{product.colour}</option>
-</select>
-        </div>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded " style={{fontSize:'20px',backgroundColor:'#232f3e'
-          }}
-          onClick={handleAddToCart}
-        >
-      {state ? 'Update Cart' : 'Add to '}
-      <ShoppingCartOutlinedIcon sx={{ fontSize: 32 }} />
-  
-        </button>
-      </div>
-
+              {/* Quantity and Color Selection */}
+              <div className="flex flex-col gap-6">
+                <div>
+                  <label htmlFor="quantity" className="block mb-2">Quantity</label>
+                  <input
+                    id="quantity"
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    className="border border-gray-300 rounded p-2 w-full quantity-input"
+                  />
+                  <label htmlFor="color" className="block mb-2">Color</label>
+                  <select
+                    id="color"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="border border-gray-300 rounded p-2 w-full color-input"
+                  >
+                    <option value={product?.colour}>{product?.colour}</option>
+                  </select>
+                </div>
+                {/* Add to Cart Button */}
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  style={{ fontSize: '20px', backgroundColor: '#232f3e' }}
+                  onClick={handleAddToCart}
+                >
+                  {state ? 'Update Cart' : 'Add to Cart'}
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: 32 }} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    
-        <Footer/>
+      <Footer />
     </>
   );
 };
