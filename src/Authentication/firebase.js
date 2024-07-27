@@ -11,7 +11,7 @@ const app = initializeApp({
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL // Add the correct database URL here
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL 
 
 
 });
@@ -19,5 +19,5 @@ const app = initializeApp({
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const db = getDatabase(app);
-export { ref, set, onValue }; // Add these exports
+export { ref, set, onValue }; 
 export default app;

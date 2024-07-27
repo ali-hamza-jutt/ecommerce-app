@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import '../styles/ProductDescription.css'; // Import CSS file for styling
+import '../styles/ProductDescription.css';
 
 const ProductDescription = () => {
   const { productId } = useParams();

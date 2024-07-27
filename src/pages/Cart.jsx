@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ref, onValue, remove } from 'firebase/database';
-import { db } from '../Authentication/firebase.js'; // Adjust path as necessary
-import { setCartItems, selectCartItems } from '../redux/cartSlice.js'; // Adjust path as necessary
+import { db } from '../Authentication/firebase.js'; 
+import { setCartItems, selectCartItems } from '../redux/cartSlice.js'; 
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer'

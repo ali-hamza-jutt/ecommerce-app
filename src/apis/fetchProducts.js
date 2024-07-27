@@ -6,7 +6,7 @@ export const fetchProducts = async (categoryId) => {
       params: {
           lang: 'en-US',
           store: 'US',
-          categoryId: categoryId, // Ensure this is being set correctly
+          categoryId: categoryId, 
           limit: 48
       },
       headers: {
