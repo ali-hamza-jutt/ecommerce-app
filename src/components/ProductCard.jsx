@@ -21,9 +21,9 @@ const ProductCard = ({ product }) => {
   
   
   return (
-    <div className="max-w-xs w-70  bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden cursor-pointer  mx-auto"       onClick={handleClick}
+    <div className="max-w-xs w-70   bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden cursor-pointer  mx-auto"       onClick={handleClick}
 >
-      <img className="w-full h-57  object-contain" src={`https://${product.imageUrl}`} alt={product.name} />
+      <img className="w-full  object-contain" src={`https://${product.imageUrl}`} alt={product.name} />
       <div className="p-4">
         <div className="text-lg font-semibold text-gray-800">{product.name}</div>
 

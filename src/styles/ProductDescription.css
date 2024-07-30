@@ -1,5 +1,5 @@
 .main-container {
-    background-color: #e3e3e3;
+    background-color: #ffffff;
     padding: 20px;
     overflow-y: auto; /* Ensure container takes up full width */
     box-sizing: border-box; /* Include padding in the element's total width and height */
@@ -31,7 +31,7 @@
   .add-to-cart-button {
     margin-top: 30px;
     padding: 12px 24px;
-    background-color: #232f3e;
+    background-color: #000000;
     color: #fff;
     border-radius: 8px;
     cursor: pointer;

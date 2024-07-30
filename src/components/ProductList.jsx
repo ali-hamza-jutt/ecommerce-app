@@ -46,7 +46,7 @@ const ProductList = () => {
     return (
         <>
         <Navbar/>
-        <div className="p-4 sm:px-6 lg:px-8 " style={{ backgroundColor: '#feeeca',minHeight:'50vh' }}>
+        <div className="p-4 sm:px-6 lg:px-8 " style={{ backgroundColor: '#ffffff',minHeight:'50vh' }}>
             <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
                 {content}
             </div>

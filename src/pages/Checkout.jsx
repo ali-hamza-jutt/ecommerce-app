@@ -301,7 +301,7 @@ const Checkout = () => {
                     <button
                       type="button"
                       className="px-4 py-2 text-white rounded"
-                      style={{ backgroundColor: '#232f3e', fontSize: '18px' }}
+                      style={{ backgroundColor: '#000000', fontSize: '18px' }}
                       onClick={() => setStep(step + 1)}
                       disabled={isSubmitting}
                     >

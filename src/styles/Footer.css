@@ -1,8 +1,11 @@
 :root {
-    --footer-background: #181c24; /* Lighter background color for the footer */
-    --footer-text: #fff;
-    --footer-link: #ddd;
+    --footer-background: #000000; /* Lighter background color for the footer */
+    --footer-text: #ffffff;
+    --footer-link: #efefef;
     --footer-link-hover: #fff;
+    --footer-bottom-background:#ffffff;
+    --footer-bottom-text:#000000;
+    --footer-bottom-font-size:17px;
   }
   
   .footer {
@@ -59,6 +62,9 @@
   .footer-bottom {
     text-align: center;
     padding: 10px;
-    background-color: #333;
+    background-color: var(--footer-bottom-background);
+    color: var(--footer-bottom-text);
+    font-size: var(--footer-bottom-font-size);
+    
   }
   

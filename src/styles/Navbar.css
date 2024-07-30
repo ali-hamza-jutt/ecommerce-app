@@ -1,14 +1,15 @@
 :root {
-  --navbar-background: #181c24;
-  --navbar-text: #ffffff;
+  --navbar-background: #ffffff;
+  --navbar-text: #000000;
   --profile-button-background: #ff4500;
   --search-background: #efefef;
-  --category-bar-background: #282c3c;
+  --category-bar-background: #000000;
   --menu-wrapper-background: transparent;
   --menu-option-text: #ffffff;
   --category-option-text: #ffffff;
   --profile-menu-background: #ffffff;
   --profile-menu-hover-background: #f0f0f0;
+  --category-mobile-option-text-color:#000000;
 }
 
 body {
@@ -17,6 +18,7 @@ body {
 }
 
 .wrapper {
+  position: static;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -226,7 +228,7 @@ form {
 }
 .categoryOption {
   text-decoration: none;
-  color: var(--category-option-text);
+  color: var(--category-mobile-option-text-color);
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
@@ -260,5 +262,5 @@ form {
 }
 .categoryHeading{
   font-size: 20px;
-  color:#feeeca;
+  color:#000000;
 }

@@ -106,14 +106,14 @@ const Cart = () => {
   <div className="flex flex-col sm:flex-row sm:justify-start gap-2">
     <button
       className="px-4 py-2 text-white rounded"
-      style={{ backgroundColor: '#232f3e' }}
+      style={{ backgroundColor: '#000000' }}
       onClick={() => handleEdit(item)}
     >
       <EditTwoToneIcon />
     </button>
     <button
       className="px-4 py-2 text-white rounded"
-      style={{ backgroundColor: '#232f3e' }}
+      style={{ backgroundColor: '#000000' }}
       onClick={() => handleDelete(item.productId)}
     >
       <DeleteOutlineSharpIcon />
@@ -128,7 +128,7 @@ const Cart = () => {
       </div>
       <button
         className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
-        style={{fontSize:'18px',backgroundColor:'#232f3e'}}
+        style={{fontSize:'18px',backgroundColor:'#000000'}}
         onClick={() => navigate('/checkout')}
       >
         Checkout <ShoppingCartCheckoutIcon sx={{ fontSize: 32 }} />
