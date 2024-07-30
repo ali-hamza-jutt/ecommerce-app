@@ -80,7 +80,7 @@ const Cart = () => {
   return (
     <>
     <Navbar/>
-    <div className="w-full p-6">
+    <div className="w-full p-6 min-h-96">
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>

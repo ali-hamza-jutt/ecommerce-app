@@ -51,7 +51,7 @@ const Order = () => {
   return (
     <>
     <Navbar/>
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 min-h-96">
       <h2 className="text-2xl font-bold mb-4">Your Orders</h2>
       {orders.length === 0 ? (
         <p>You have no orders.</p>
