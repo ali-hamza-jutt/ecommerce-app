@@ -30,9 +30,6 @@ const ProductCard = ({ product }) => {
         <p className="text-red-600 text-xl font-bold my-1">
           Price: {product.price.current.text}
         </p>
-        <p className="text-green-600 text-sm my-1">
-          Brand: {product.brandName}
-        </p>
         <p className="text-gray-700 my-1">
           Color: {product.colour}
         </p>

@@ -154,7 +154,7 @@ function Navbar({ onSubmit, onCategoryChange = () => {} }) {
                         <div className="menuOption" onClick={handleCartClick}>
                             <ShoppingCartOutlinedIcon sx={{ fontSize: 36 }} />
                         </div>
-                        <h2 className="categoryHeading">Categories</h2>
+                        <h2 className="categoryHeading" styles>Categories</h2>
                         <div className="categoryBar open">
                             <div className="categoryOption" onClick={() => handleCategoryClick(4210)}>
                                 Accessories

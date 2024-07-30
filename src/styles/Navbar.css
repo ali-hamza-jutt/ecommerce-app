@@ -172,6 +172,8 @@ form {
   text-decoration: none;
   color: var(--navbar-text);
   padding: 10px 0;
+  font-size: 18px;
+    font-weight: 500;
 }
 
 .menuWrapper {
@@ -183,6 +185,8 @@ form {
 
 @media (min-width: 768px) {
   .menuOption{
+    font-size: 18px;
+    font-weight: 500;
     padding: 12px;
   }
 
@@ -207,14 +211,14 @@ form {
 }
 
 
-.menuOption a {
+/* .menuOption a {
   display: block;
   padding: 10px 0;
   text-decoration: none;
   color: var(--menu-option-text);
   font-size: 20px;
   font-weight: 500;
-}
+} */
 
 
 
@@ -263,4 +267,7 @@ form {
 .categoryHeading{
   font-size: 20px;
   color:#000000;
+}
+.menuOption:hover{
+  cursor: pointer;
 }
