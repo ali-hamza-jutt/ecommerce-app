@@ -5,7 +5,7 @@ import { db } from '../Authentication/firebase.js';
 import { setCartItems, selectCartItems } from '../redux/cartSlice.js'; 
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
@@ -58,12 +58,12 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <div >
-        <Navbar/>
-        <LoadingAnimation/>
-        <Footer/>
+      <div>
+        <Navbar />
+        <LoadingAnimation />
+        <Footer />
       </div>
-    )
+    );
   }
 
   if (!user.isAuthenticated) {
@@ -71,71 +71,69 @@ const Cart = () => {
   }
 
   const totalBill = cartItems.reduce((total, item) => {
-    const itemPrice = parseFloat(item.price) || 0; // Ensure price is a number
-    const itemQuantity = parseInt(item.quantity) || 1; // Ensure quantity is an integer
-    const itemTotalPrice = parseFloat(item.totalPrice) || itemPrice * itemQuantity; // Default totalPrice if not set
+    const itemPrice = parseFloat(item.price) || 0;
+    const itemQuantity = parseInt(item.quantity) || 1;
+    const itemTotalPrice = parseFloat(item.totalPrice) || itemPrice * itemQuantity;
     return total + itemTotalPrice;
   }, 0);
 
   return (
     <>
-    <Navbar/>
-    <div className="w-full p-6 min-h-96">
-      <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        cartItems.map((item) => (
-          <div
-  key={item.productId}
-  className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4 p-4"
-  style={{ backgroundColor: '#EEEDEB', borderRadius: '8px' }}
->
-  <img
-    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
-    src={`https://${item.imageUrl}`}
-    alt={item.name}
-  />
-  <div className="flex-grow">
-    <h3 className="text-lg font-bold">{item.name}</h3>
-    <p>Color: {item.color}</p>
-    <p>Quantity: {item.quantity}</p>
-    <p>Price: {item.price}</p>
-    <p>Total Price: ${item.totalPrice}</p> {/* Display totalPrice */}
-  </div>
-  <div className="flex flex-col sm:flex-row sm:justify-start gap-2">
-    <button
-      className="px-4 py-2 text-white rounded"
-      style={{ backgroundColor: '#000000' }}
-      onClick={() => handleEdit(item)}
-    >
-      <EditTwoToneIcon />
-    </button>
-    <button
-      className="px-4 py-2 text-white rounded"
-      style={{ backgroundColor: '#000000' }}
-      onClick={() => handleDelete(item.productId)}
-    >
-      <DeleteOutlineSharpIcon />
-    </button>
-  </div>
-</div>
-
-        ))
-      )}
-      <div className="mt-6">
-        <h3 className="text-xl font-bold">Total Bill: ${totalBill}</h3>
+      <Navbar />
+      <div className="w-full p-8 min-h-96 bg-white">
+        <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Your Cart</h2>
+        {cartItems.length === 0 ? (
+          <p className="text-center text-2xl text-gray-800">Your cart is empty.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cartItems.map((item) => (
+              <div
+                key={item.productId}
+                className="flex flex-col bg-white text-gray-900 rounded-lg shadow-lg overflow-hidden"
+                style={{ border: '1px solid #e0e0e0' }} // Subtle border for a modern look
+              >
+                <img
+                  className="w-full h-48 object-cover"
+                  src={`https://${item.imageUrl}`}
+                  alt={item.name}
+                />
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold">{item.name}</h3>
+                  <p className="mt-2 text-gray-600">Color: {item.color}</p>
+                  <p className="mt-1 text-gray-600">Quantity: {item.quantity}</p>
+                  <p className="mt-1 font-bold">Price: ${item.price}</p>
+                  <p className="mt-1 font-bold">Total: ${item.totalPrice}</p>
+                </div>
+                <div className="flex justify-between p-4 bg-gray-100">
+                  <button
+                    className="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600"
+                    onClick={() => handleEdit(item)}
+                  >
+                    <EditTwoToneIcon />
+                  </button>
+                  <button
+                    className="p-2 rounded-full bg-red-500 text-white hover:bg-red-600"
+                    onClick={() => handleDelete(item.productId)}
+                  >
+                    <DeleteOutlineSharpIcon />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="mt-10 text-center">
+          <h3 className="text-3xl font-bold text-gray-800">Total Bill: ${totalBill}</h3>
+          <button
+            className="mt-6 px-8 py-4 bg-green-500 text-white text-2xl font-bold rounded-full shadow-lg hover:bg-green-600 transition duration-300"
+            onClick={() => navigate('/checkout')}
+          >
+            Checkout <ShoppingCartCheckoutIcon sx={{ fontSize: 36, marginLeft: 1 }} />
+          </button>
+        </div>
       </div>
-      <button
-        className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
-        style={{fontSize:'18px',backgroundColor:'#000000'}}
-        onClick={() => navigate('/checkout')}
-      >
-        Checkout <ShoppingCartCheckoutIcon sx={{ fontSize: 32 }} />
-      </button>
-    </div>
-    <Footer/>
-              </>
+      <Footer />
+    </>
   );
 };
 

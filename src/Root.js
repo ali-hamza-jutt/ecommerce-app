@@ -10,7 +10,7 @@ import Checkout from './pages/Checkout';
 import Order from './pages/Order';
 import ProductList from './components/ProductList';
 import App from './App';
-import './index.css'
+import './index.css'  
 
 const Root = () => {
   return (
